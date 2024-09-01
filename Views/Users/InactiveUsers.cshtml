@@ -1,0 +1,35 @@
+﻿@model List<User>
+@{
+    ViewData["Title"] = "InactiveUsers";
+}
+
+<h1>InactiveUsers</h1>
+@if (Model != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Activate</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.UserName</td>
+                    <td>
+                        <form asp-controller="Users" asp-action="ActivateUser" method="post">
+                            <input type="hidden" name="id" value="@user.UserId" />
+                            <button type="submit" class="btn btn-primary">Activate</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No inactive users found.</p>
+}
